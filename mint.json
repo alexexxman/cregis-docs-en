@@ -29,6 +29,14 @@
     {
       "name": "API Reference",
       "url": "api-reference"
+    },
+    {
+      "name": "SDKs and Tools",
+      "url": "sdks"
+    },
+    {
+      "names": "FAQs",
+      "url": "faqs"
     }
   ],
   "anchors": [
@@ -66,7 +74,8 @@
       "pages": [
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/delete",
+        "api-reference/endpoint/createAddress"
       ]
     }
   ],
