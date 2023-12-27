@@ -108,7 +108,9 @@
         "sdk-tool/endpoint/createAddress",
         "sdk-tool/endpoint/payout",
         "sdk-tool/endpoint/queryAddress",
-        "sdk-tool/endpoint/checkAddress"
+        "sdk-tool/endpoint/checkAddress",
+        "sdk-tool/endpoint/supportCoins",
+        "sdk-tool/endpoint/queryPayout"
       ]
     }
   ],
