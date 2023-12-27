@@ -1,6 +1,6 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "EG Dev",
+  "name": "Cregis Developer",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
@@ -18,21 +18,25 @@
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "https://chat.bytrack.xyz?appId=7tAbr779"
     }
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://www.cregis.com"
   },
   "tabs": [
+    {
+      "name": "Get Started",
+      "url": "getting-started"
+    },
     {
       "name": "API Reference",
       "url": "api-reference"
     },
     {
       "name": "SDKs and Tools",
-      "url": "sdks"
+      "url": "sdk-tool"
     },
     {
       "name": "FAQs",
@@ -40,21 +44,6 @@
     }
   ],
   "anchors": [
-    {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
-    },
-    {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
-    }
   ],
   "navigation": [
     {
@@ -66,8 +55,34 @@
       "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
     },
     {
-      "group": "API Documentation",
-      "pages": ["api-reference/introduction"]
+      "group": "getting-started",
+      "pages": [
+        "getting-started/obtaining-the-api-key",
+        "getting-started/request",
+        "getting-started/response",
+        "getting-started/signature",
+        "getting-started/return-codes",
+        "getting-started/currency-identifiers",
+        "getting-started/sdk"
+      ]
+    },
+    {
+      "group": "request-apis",
+      "pages": [
+        "api-reference/request-apis/payout-create",
+        "api-reference/request-apis/payout-query",
+        "api-reference/request-apis/address-generate",
+        "api-reference/request-apis/validation-address-existence",
+        "api-reference/request-apis/validation-address-legality",
+        "api-reference/request-apis/currency-query"
+      ]
+    },
+    {
+      "group": "callback",
+      "pages": [
+        "api-reference/callback/payout",
+        "api-reference/callback/address-deposit"
+      ]
     },
     {
       "group": "Endpoint Examples",
@@ -75,7 +90,25 @@
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
         "api-reference/endpoint/delete",
-        "api-reference/endpoint/createAddress"
+        "api-reference/endpoint/createAddress",
+        "api-reference/endpoint/payout",
+        "api-reference/endpoint/queryAddress",
+        "api-reference/endpoint/checkAddress"
+      ]
+    },
+    {
+      "group": "SDKs",
+      "pages": [
+        "sdk-tool/sdk"
+      ]
+    },
+    {
+      "group": "Tools",
+      "pages": [
+        "sdk-tool/endpoint/createAddress",
+        "sdk-tool/endpoint/payout",
+        "sdk-tool/endpoint/queryAddress",
+        "sdk-tool/endpoint/checkAddress"
       ]
     }
   ],
