@@ -47,23 +47,17 @@
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "Overview",
       "pages": ["introduction", "quickstart", "development"]
-    },
-    {
-      "group": "Essentials",
-      "pages": ["essentials/markdown", "essentials/code", "essentials/images", "essentials/settings", "essentials/navigation"]
     },
     {
       "group": "getting-started",
       "pages": [
-        "getting-started/obtaining-the-api-key",
         "getting-started/request",
         "getting-started/response",
         "getting-started/signature",
         "getting-started/return-codes",
-        "getting-started/currency-identifiers",
-        "getting-started/sdk"
+        "getting-started/currency-identifiers"
       ]
     },
     {
@@ -85,15 +79,14 @@
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "Endpoint",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete",
         "api-reference/endpoint/createAddress",
         "api-reference/endpoint/payout",
+        "api-reference/endpoint/queryPayout",
         "api-reference/endpoint/queryAddress",
-        "api-reference/endpoint/checkAddress"
+        "api-reference/endpoint/checkAddress",
+        "api-reference/endpoint/supportCoins"
       ]
     },
     {
@@ -105,12 +98,17 @@
     {
       "group": "Tools",
       "pages": [
-        "sdk-tool/endpoint/createAddress",
-        "sdk-tool/endpoint/payout",
-        "sdk-tool/endpoint/queryAddress",
-        "sdk-tool/endpoint/checkAddress",
-        "sdk-tool/endpoint/supportCoins",
-        "sdk-tool/endpoint/queryPayout"
+        "sdk-tool/tool"
+      ]
+    },
+    {
+      "group": "FAQs",
+      "pages": [
+        "faqs/Address",
+        "faqs/Coin",
+        "faqs/Transaction",
+        "faqs/APIKey",
+        "faqs/Callback"
       ]
     }
   ],

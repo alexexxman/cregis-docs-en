@@ -1882,5 +1882,9 @@
       }
     }
   },
-  "servers": []
+  "servers": [
+    {
+      "url": "https://t-abcdefgh.cregis.dev"
+    }
+  ]
 }
