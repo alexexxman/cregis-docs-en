@@ -34,54 +34,6 @@
         "tags": [
           "支付 pay/收款地址api"
         ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -169,54 +121,6 @@
         "operationId": "depositUsingPOST",
         "tags": [
           "支付 pay/收款订单api"
-        ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -306,54 +210,6 @@
         "tags": [
           "支付 pay/收款订单api"
         ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -441,54 +297,6 @@
         "operationId": "depositQueryUsingPOST",
         "tags": [
           "支付 pay/收款订单api"
-        ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -578,54 +386,6 @@
         "tags": [
           "支付 pay/转出api"
         ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -713,54 +473,6 @@
         "operationId": "payoutQueryUsingPOST",
         "tags": [
           "支付 pay/转出api"
-        ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "requestBody": {
           "content": {
@@ -850,54 +562,6 @@
         "tags": [
           "支付 pay/公共api"
         ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -986,54 +650,6 @@
         "tags": [
           "支付 pay/公共api"
         ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -1121,54 +737,6 @@
         "operationId": "coinsUsingPOST",
         "tags": [
           "支付 pay/公共api"
-        ],
-        "parameters": [
-          {
-            "name": "Bearer",
-            "in": "header",
-            "description": "",
-            "required": false,
-            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MTM5NDQ5MDI2NzU2NjA4MCwiaXAiOiIxOTIuMTY4LjIuMSIsImR0Ijoid2luZG93cyIsImRuIjoiTkRJS0FVQ0xTWSIsImRpZCI6ImIzOTIzYTYzYmRhMWNiNjFkMDBhNTYxYTRmZWZlNTkzN2MwNDgzNzAiLCJjdCI6MTcwMzU3NDU3NjQ4Nn0.i_yXysLxPhcULXCQ40Egv2rkmBcmQIT-beCZEITOaig",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Client-Type",
-            "in": "header",
-            "description": "",
-            "example": "windows",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Device-Id",
-            "in": "header",
-            "description": "",
-            "example": "NDIKAUCLSY",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "User-Agent",
-            "in": "header",
-            "description": "",
-            "example": "Cregis/2.1.6 (com.cregis; build:20230823; iOS 14.6.0) Alamofire/4.9.1",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "token",
-            "in": "header",
-            "description": "",
-            "example": "8668A322-71F3-4CD3-BBF8-242F913DEBC1",
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "requestBody": {
           "content": {
