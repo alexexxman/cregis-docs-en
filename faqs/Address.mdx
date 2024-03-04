@@ -3,6 +3,18 @@ title: 'Address Management'
 description: 'Frequently Asked Questions about Address Management'
 ---
 
-## How to batch-generate addresses?
+## How to ensure the correctness of user’s recharge address？
 
-## How to verify whether a withdraw address is legitimate?
+In order to prevent the recharge address displayed to the user from being incorrect, you can call[check address exist](/api-reference/request-apis/validation-address-existence)，If the verification address is the corresponding project address, the corresponding address can be displayed to the user.
+
+
+## How to handle the failure to call the coin withdrawal interface？
+
+Common currency withdrawal failures include the following scenarios:<br/>
+1、The format of the currency withdrawal address provided does not match the corresponding chain. Before initiating the currency withdrawal application, you can call[check address legal](/api-reference/request-apis/validation-address-legality) <br/>
+2、The number of decimal points for the withdrawal amount is too long. It is recommended to check the accuracy of the corresponding currency, which is the maximum supported number of decimal points. <br/>
+3、The caller's business number is repeated. Third_party_id is used as a field for transactions with the business party. `Cregis` does not support receiving repeated business data. <br/>
+
+<Info>
+Note: The withdrawal amount will not cause the withdrawal failure due to insufficient asset balance in the `Cregis` wallet.
+</Info>

@@ -50,7 +50,6 @@
       "group": "Function Specifics",
       "pages": [
         "user-recharge",
-        "order-receipt",
         "withdrawal-payment"
       ]
     },
@@ -68,9 +67,6 @@
       "group": "Requests",
       "pages": [
         "api-reference/request-apis/address-generate",
-        "api-reference/request-apis/order-deposit-create",
-        "api-reference/request-apis/order-deposit-query",
-        "api-reference/request-apis/order-deposit-cancel",
         "api-reference/request-apis/payout-create",
         "api-reference/request-apis/payout-query",
         "api-reference/request-apis/validation-address-existence",
@@ -82,7 +78,6 @@
       "group": "Callbacks",
       "pages": [
         "api-reference/callback/address-deposit",
-        "api-reference/callback/order-deposit",
         "api-reference/callback/payout"
       ]
     },

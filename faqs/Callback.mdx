@@ -3,6 +3,10 @@ title: 'API Callback'
 description: 'Frequently Asked Questions about API Callback'
 ---
 
-## How to batch-generate addresses?
+## How to ensure the security of callback data？
 
-## How to verify whether a withdraw address is legitimate?
+Please be sure to verify the correctness of the sign field in the callback. At the same time, you can contact customer service to obtain the server IP of the callback initiator. Before receiving the callback, you can set up to only receive callbacks initiated by the specified IP.
+
+## How to handle callback failure？
+
+`Cregis` believes that the only sign that the callback is successful is that the callback request is initiated and the `success` string is received. Please return after receiving the callback information and processing the business correctly. If the callback fails, you can log in to the `Cregis` client, find the failed callback record in the corresponding project, check the cause of the failure, and re-push it.
