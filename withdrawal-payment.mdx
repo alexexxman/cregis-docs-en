@@ -25,11 +25,8 @@ As mentioned above, corporate withdrawals revolve around the enterprise wallet a
    * If not supported, an account cannot be generated.
 2. Verify Target Address Validity
    * [Confirm whether the target address is a valid address](/api-reference/request-apis/validation-address-legality) on the target blockchain.
-3. Verify Address Ownership
-   * [Determine if the target address belongs to the same project](/api-reference/request-apis/validation-address-existence) (pid).
-   * If restricted to internal transfers, terminate the process at this point.
-4. Initiate Withdrawal/Payment
+3. Initiate Withdrawal/Payment
    * Submit the [withdrawal request](/api-reference/request-apis/payout-create) to the enterprise wallet.
-5. Withdrawal Query/Monitoring
+4. Withdrawal Query/Monitoring
    * After the user initiates a withdrawal, the notification callback address will receive a withdrawal status notification.
    * User can also [query the withdrawl/payment progress](/api-reference/request-apis/payout-query) actively.

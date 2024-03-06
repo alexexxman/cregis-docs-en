@@ -3,7 +3,8 @@
   "name": "Cregis Developer",
   "logo": {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/logo/light.svg",
+    "href": "https://www.cregis.com"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -19,6 +20,10 @@
     {
       "name": "Support",
       "url": "https://chat.bytrack.xyz?appId=7tAbr779"
+    },
+    {
+      "name": "CN",
+      "url": "https://developer-cn.cregis.com/"
     }
   ],
   "topbarCtaButton": {
