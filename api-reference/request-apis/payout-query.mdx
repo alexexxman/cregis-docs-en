@@ -58,6 +58,18 @@ POST /api/v1/payout/query
 | block_height   | string         | Block Height           |
 | block_time     | integer(int64) | Block Time             |
 
+#### Response `status` enum
+
+| status | Description            |
+| ------ | ---------------------- |
+| 0      | Awaiting audit     |
+| 3      | Audit cancel      |
+| 4      | Audit reject |
+| 5      | Awaiting sign     |
+| 1      | Sign pass    |
+| 2      | Sign reject     |
+| 6      | Transaction success     |
+| 7      | Transaction fail     |
 
 ###### Response Example
 
