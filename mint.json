@@ -76,14 +76,19 @@
         "api-reference/request-apis/payout-query",
         "api-reference/request-apis/validation-address-existence",
         "api-reference/request-apis/validation-address-legality",
-        "api-reference/request-apis/currency-query"
+        "api-reference/request-apis/currency-query",
+        "api-reference/request-apis/payment-create",
+        "api-reference/request-apis/payment-query",
+        "api-reference/request-apis/payment-fiat-currency",
+        "api-reference/request-apis/payment-crypto-currency"
       ]
     },
     {
       "group": "Callbacks",
       "pages": [
         "api-reference/callback/address-deposit",
-        "api-reference/callback/payout"
+        "api-reference/callback/payout",
+        "api-reference/callback/payment"
       ]
     },
     {

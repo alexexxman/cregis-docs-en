@@ -1,0 +1,76 @@
+---
+title: 'Payment > Get support crypto currency'
+description: 'View support Cryptocurrencies'
+---
+
+### API URL
+
+POST /api/v1/order_crypto_currency
+
+### Request
+
+#### Request Parameters
+| Name       | Type           | Required | Description          |
+|------------|----------------|----------|----------------------|
+| pid        | integer(int64) | Y     | Project ID           |
+| nonce      | string         | Y     | 6 random string |
+| timestamp  | integer(int64) | Y     | Timestamp            |
+| sign       | string         | Y     | Signature            |
+
+
+###### Request Example
+
+```json
+{
+    "pid": 1382528827416576,
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | --------------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | array | Return data    |
+
+#### Response `data` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| token_symbol      | string         | Token Symbol             |
+| blockchain   | string         | Blockchain Network               |
+| token_decimals   | string         | Decimal Places               |
+| token_name | string         | Token Name              |
+| logo_url   | string | Token Logo    |
+
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": [
+        {
+            "token_symbol": "USDT",
+            "blockchain": "BNB-BSC",
+            "token_decimals": 18,
+            "token_name":"USDT-BEP20",
+            "logo_url":""
+        },
+        {
+            "token_symbol": "USDT",
+            "blockchain": "TRON",
+            "token_decimals": 6,
+            "token_name":"USDT-TRC20",
+            "logo_url":""
+        }
+    ]
+}
+```

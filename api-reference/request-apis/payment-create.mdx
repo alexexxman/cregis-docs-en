@@ -1,0 +1,124 @@
+---
+title: 'Payment > Create'
+description: 'Create the payment order.'
+---
+
+### API URL
+
+POST /api/v1/order
+
+### Request
+
+#### Request Parameters
+| Name           | Type           | Required | Description        |
+|------------|----------------|----------|----------------------|
+| pid        | integer(int64) | Y     | Project id           |
+| nonce      | string         | Y     | 6 random string |
+| timestamp  | integer(int64) | Y     | Timestamp            |
+| sign       | string         | Y     | Signature            |
+| order_id   | string         | Y     | Merchant's custom unique order ID. No more than 64 characters |
+| order_amount   | string     | Y     | Order transaction amount. Precision can refer to the decimals field value of the fiat currency information list |
+| order_currency   | string   | Y     | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD. Refer to the fiat currency information list  |
+| callback_url   | string     | N     | Callback address, when order status is changed, a callback notification will be initiated to the corresponding callback_url. Up to 256 characters |
+| remark       | string       | N     | Remarks only. No more than 256 characters            |
+| valid_time       | integer  | N     | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes |
+| payer_id       | string     | N     | Payer unique ID. No more than 32 characters            |
+| payer_name       | string   | N     | Payer's name. No more than 32 characters            |
+| payer_email       | string  | N     | Payer email            |
+
+
+###### Request Example
+
+```json
+{
+    "order_id": "c9231e604da54469a735af3f449c880f",
+    "order_amount": "100",
+    "order_currency": "CNY",
+    "callback_url": "http://xxx.com/order/callback",
+    "remark": "payout",
+    "payer_id": "p_001",
+    "payer_name": "payer",
+    "payer_email": "xxxx@cregis.com"
+    "valid_time": 60,
+    "pid": 1382528827416576,
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | --------------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | Array | Return data    |
+
+#### Response `data` Array Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| cregis_id      | string         | Cregis unique id             |
+| order_amount   | string         | Order transaction amount, defined by the merchant               |
+| order_currency | string         | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant               |
+| created_time   | integer(int64) | Order creation time. 13-digit timestamp    |
+| expire_time    | integer(int64) | Order expiration time. 13-digit timestamp                |
+| payment_info   | array          | Payment related information                 |
+
+#### `payment_info` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| payment_address      | string         | Wallet address that receives payment             |
+| token_symbol   | string         | Order currency               |
+| blockchain | string         | Blockchain name               |
+| token_name   | string | Token name    |
+| logo_url    | string | Token logo               |
+| token_decimals   | integer          | Token decimal places                 |
+| receive_amount   | string          | The amount of the order after exchange rate conversion                 |
+| receive_currency   | string          | The order currency code after exchange rate conversion                 |
+| exchange_rate   | string          | Currency exchange rate                 |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": {
+        "cregis_id": "po20240703132452000",
+        "order_amount": "100",
+        "order_currency": "CNY",
+        "created_time":1720430000000,
+        "expire_time":1720430174148,
+        "payment_info": [
+            {
+                "payment_address": "TLKz6k1EvMs2sMwTEbqQ6SZfbhzLU7XsQR",
+                "token_symbol": "USDT",
+                "blockchain": "TRON#Shasta",
+                "token_name": "BEP20#Testnet",
+                "logo_url": "",
+                "token_decimals": 18,
+                "receive_amount": "21.20",
+                "receive_currency": "USDT",
+                "exchange_rate": "0.000001111"
+            },
+            {
+                "payment_address":
+                "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
+                "token_symbol": "USDC",
+                "blockchain": "BNB-BSC",
+                "token_name": "USDT-BEP20",
+                "logo_url": "",
+                "token_decimals": 18,
+                "receive_amount": "21.30",
+                "receive_currency": "USDC",
+                "exchange_rate": "0.0000022222"
+            }
+        ]
+    }
+}
+```

@@ -1,0 +1,72 @@
+---
+title: 'Payment > Get support fiat currency'
+description: 'Retrieves all currencies'
+---
+
+### API URL
+
+POST /api/v1/order_fiat_currency
+
+### Request
+
+#### Request Parameters
+| Name       | Type           | Required | Description          |
+|------------|----------------|----------|----------------------|
+| pid        | integer(int64) | Y     | Project ID           |
+| nonce      | string         | Y     | 6 random string |
+| timestamp  | integer(int64) | Y     | Timestamp            |
+| sign       | string         | Y     | Signature            |
+
+###### Request Example
+
+```json
+{
+    "pid": 1382528827416576,
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | --------------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | array | Return data    |
+
+#### Response `data` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| currency_code      | string         | Currency code [e.g., CNY, HKD]  |
+| currency_decimals   | string        | Decimal places                  |
+| currency_symbol   | string         | Currency symbol [e.g., ￥, $]    |
+| currency_name | string         | Currency name [e.g., US Dollar]      |
+
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": [
+        {
+            "currency_code": "CNY",
+            "currency_decimals": 2,
+            "currency_symbol": "￥",
+            "currency_name": "RMB"
+        },
+        {
+            "currency_code": "HKD",
+            "currency_decimals": 2,
+            "currency_symbol": "$",
+            "currency_name": "Dollar"
+        }
+    ]
+}
+```

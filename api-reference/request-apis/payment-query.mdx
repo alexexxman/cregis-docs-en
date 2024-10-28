@@ -1,0 +1,156 @@
+---
+title: 'Payment > query'
+description: 'Query the payment order.'
+---
+
+### API URL
+
+POST /api/v1/order/info
+
+### Request
+
+#### Request Parameters
+| Name       | Type           | Required | Description          |
+|------------|----------------|----------|----------------------|
+| pid        | integer(int64) | Y     | Project id           |
+| nonce      | string         | Y     | 6 random string |
+| timestamp  | integer(int64) | Y     | Timestamp            |
+| sign       | string         | Y     | Signature            |
+| cregis_id  | string        | Y    | Cregis unique id |
+
+
+###### Request Example
+
+```json
+{
+    "cregis_id": "po20240703132452000",
+    "pid": 1382528827416576,
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | --------------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | object | Return data    |
+
+#### Response `data` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| cregis_id      | string         | Cregis unique id             |
+| order_id   | string         | Merchant's custom unique order ID.               |
+| order_amount   | string         | Order transaction amount, defined by the merchant               |
+| order_currency | string         | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant              |
+| created_time   | integer(int64) | Order creation time. 13-digit timestamp    |
+| cancel_time    | integer(int64) | Order cancelled time. 13-digit timestamp    |
+| transact_time    | integer(int64) | Order payment completed time. 13-digit timestamp    |
+| valid_time    | integer | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes    |
+| status    | string | Order Status - new: Initial status of the order - paid: The order has been successfully paid - expired: The order has exceeded the valid time    - Exception Status  - paid_over: Payment exceeds the order amount   - paid_partial: Payment is less than the order amount    |
+| reamrk    | string | Remarks    |
+| payer_id    | string | Payer unique ID    |
+| payer_name    | string | Payer's name    |
+| payer_email    | string | Payer email    |
+| payment_info   | array          | payment info                 |
+| payment_detail   | array          | payment detail                 |
+
+#### `payment_info` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| payment_address      | string         | Payment wallet address             |
+| token_symbol   | string         | token symbol               |
+| blockchain | string         | blockchain network               |
+| token_name   | string | token name    |
+| logo_url    | string | token logo URL               |
+| token_decimals   | integer          | token decimals              |
+| receive_amount   | string          | The amount of the order after exchange rate conversion                 |
+| receive_currency   | string          | The order currency code after exchange rate conversion                 |
+| exchange_rate   | string          | Exchange rate                 |
+
+#### `payment_detail` Object
+
+| Name  | Type     | Description          |
+|----------------|----------------|------------------------|
+| payment_address      | string         | Payment wallet address             |
+| receive_amount   | string         | The amount of the order after exchange rate conversion               |
+| receive_currency | string         | The order currency code after exchange rate conversion               |
+| pay_amount   | string | Actual received amount    |
+| pay_currency    | string | Received currency               |
+| exchange_rate   | string          | Exchange rate                 |
+| tx_id   | string          | Transaction hash                 |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": {
+        "cregis_id": "po20240703132452000",
+        "order_id": "c9231e604da54469a735af3f449c880f",
+        "order_amount": "100",
+        "order_currency": "CNY",
+        "created_time": 1719993183015,
+        "cancel_time": null,
+        "transact_time": 1719993183325,
+        "valid_time": 30,
+        "status": "paid",
+        "payer_id": "p_001",
+        "payer_name": "",
+        "payer_email": ""
+        "reamrk":"Purchase Products",
+        "payment_info": [
+            {
+                "payment_address": "TLKz6k1EvMs2sMwTEbqQ6SZfbhzLU7XsQR",
+                "token_symbol": "USDT",
+                "blockchain": "TRON#Shasta",
+                "token_name": "BEP20#Testnet",
+                "logo_url": "",
+                "token_decimals": 18,
+                "receive_amount": "21.20",
+                "receive_currency": "USDT",
+                "exchange_rate": "0.000001111"
+            },
+            {
+                "payment_address": "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
+                "token_symbol": "USDC",
+                "blockchain": "BNB-BSC",
+                "token_name": "USDT-BEP20",
+                "logo_url": "",
+                "token_decimals": 18,
+                "receive_amount": "21.30",
+                "receive_currency": "USDC",
+                "exchange_rate": "0.0000022222"
+            }
+        ],
+        "payment_detail": [
+            {
+                "payment_address": "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
+                "receive_amount": "20.01",
+                "receive_currency": "USDT",
+                "pay_amount": "10",
+                "pay_currency": "USDT",
+                "exchange_rate": "7.0000000001",
+                "tx_id": "0x0502f2bfd96cd0f55edea3343513940f3af7fe594eae77f08d2f46ea24829b11"
+            },
+            {
+                "payment_address": "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
+                "receive_amount": "20.01",
+                "receive_currency": "USDT",
+                "pay_amount": "10.01",
+                "pay_currency": "USDT",
+                "exchange_rate": "7.0000000001",
+                "tx_id": "0x0502f2bfd96cd0f55edea3343513940f3af7fe594eae77f08d2f46ea24829b22"
+            }
+        ]
+    }
+}
+```

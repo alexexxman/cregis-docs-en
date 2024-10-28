@@ -1,0 +1,89 @@
+---
+title: 'Callback > Payment'
+description: 'The notification for payment result.'
+---
+
+## Callback API
+
+Notify the caller when the order status changes using the provided `callback_url`, details for [Payment->Create](/api-reference/request-apis/payment-create) `callback_url` param
+
+#### Callback event
+
+| Callback Event Name (event_name) | Callback Event Type (event_type) | Description            |
+| ------ | ------------ | ---------- |
+| order      | expired     | Order Timeout Notification |
+| order      | paid      | Payment Completed Notification |
+
+#### Request method
+
+- Method: HTTP POST
+- Content-Type: application/json
+- If the response is the string "success", the callback is successful; otherwise, it fails.
+
+#### Request parameters
+
+| Name             | Type            | Description       |
+| ---------------- | --------------- | ----------------- |
+| event_name              | string  | Event name        |
+| event_type              | string  | Event type        |
+| data         | object          | Order information         |
+| pid       | integer(int64)  | Project ID        |
+| nonce            | string          | 6 random string |
+| timestamp        | integer(int64)  | Timestamp         |
+| sign             | string          | Signature         |
+
+#### `data` Object
+
+| Name             | Type            | Description       |
+| ---------------- | --------------- | ----------------- |
+| cregis_id              | string  | Cregis unique id        |
+| order_id              | string  | Merchant's custom unique order ID.        |
+| receive_amount         | string  | The amount of the order after exchange rate conversion         |
+| receive_currency       | string  | The order currency code after exchange rate conversion        |
+| pay_amount       | string  | Actual Received Amount        |
+| pay_currency       | string  | Received currency        |
+| order_amount       | string  | Order transaction amount, defined by the merchant        |
+| order_currency       | string  | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant        |
+| exchange_rate       | string  | Exchange rate        |
+| payment_address       | string  | Payment wallet address        |
+| created_time        | integer(int64)  | Order creation time. 13-digit timestamp         |
+| cancel_time        | integer(int64)  | Order cancelled time. 13-digit timestamp         |
+| transact_time        | integer(int64)  | Order payment completed time. 13-digit timestamp         |
+| valid_time        | integer  | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes         |
+| status        | string  | Order Status - new: Initial status of the order  - paid: The order has been successfully paid - expired:The order has exceeded the valid time         |
+| remark        | string  | Remarks         |
+| tx_id        | string  | Transaction hash         |
+| payer_id        | string  | Payer unique ID         |
+| payer_name        | string  | Payer's name         |
+| payer_email        | string  | Payer email         |
+
+###### Example
+
+```json
+{
+    "event_name": "order",
+    "event_type": "paid",
+    "data": {
+        "cregis_id": "po20240703132452000",
+        "order_id": "c9231e604da54469a735af3f449c880f",
+        "receive_amount": "20.01",
+        "receive_currency": "USDT",
+        "pay_amount": "20.01",
+        "pay_currency": "USDT",
+        "order_amount": "100",
+        "order_currency": "CNY",
+        "exchange_rate": "7.0000000001",
+        "payment_address": "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
+        "created_time": 1719993183015,
+        "cancel_time": null,
+        "transact_time": 1719993183325,
+        "valid_time": 30,
+        "status": "paid",
+        "payer_id": "p_001",
+        "payer_name": "",
+        "payer_email": "1538536069@qq.com"
+        "remark":"Purchase Products",
+        "tx_id": "0x0502f2bfd96cd0f55edea3343513940f3af7fe594eae77f08d2f46ea24829b11"
+    }
+}
+```
