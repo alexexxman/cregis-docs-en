@@ -1,0 +1,167 @@
+---
+title: 'Create Payment order'
+description: 'Create a payment order using the Cregis checkout page'
+---
+
+### API URL
+
+POST /api/v2/checkout
+
+### Request
+
+#### Request Parameters
+| Name           | Type           | Required | Description        |
+|------------|----------------|----------|----------------------|
+| pid        | integer(int64) | Y     | Project id           |
+| nonce      | string         | Y     | 6 random string |
+| timestamp  | integer(int64) | Y     | Timestamp            |
+| sign       | string         | Y     | Signature            |
+| order_id   | string         | Y     | Can be used by the merchant to assign their own internal order ID to a payment. No more than 128 characters |
+| order_amount   | string         | Y     | The total payment amount, in the order currency |
+| order_currency   | string         | Y     | ISO 4217 3-character currency code. This is the currency associated with the order amount field <br/> <br/> eg: USD、HKD  <br/> Get support currency from [Get support fiat currency](/api-reference/request-apis/payment/payment-fiat-currency) |
+| order_details | JSONString | N | The breakdown details of an order, each item will be displayed on the Cregis checkout page, under order details section |
+| sub_merchant | JSONString | N | If the merchant has a sub merchant assigned under this acquiring project, it can be used by the merchant to assign their own internal sub merchant ID to associate with a payment. <br /> Field: <br /> sub_merchant_id <br /> sub_merchant_name |
+| payer_id       | string         | Y     | Can be used by the merchant to assign their own internal user ID to associate with a payment            |
+| payer_name       | string         | N     | Payer's name           |
+| payer_email       | string         | N     | Payer's email            |
+| tokens | ArrayString | N | By inputing corresponding token_name to this field to control the tokens you allow your customers to pay in. If this field is left blank, that means you accept all tokens supported by Cregis as the payin tokens by customers. <br /><br/> eg: ["USDT-TRC20","USDT-BEP20"] <br/> Get support currency from [Get support crypto currency](/api-reference/request-apis/payment/payment-crypto-currency)  |
+| stablecoin_realtime_rate | string | N | Default value：false <br />false：means using a fixed 1:1 exchange rate of USDT/USDC to USD  <br />true：means using the real-time exchange rate of USDT/USDC to USD obtained on CoinMarketCap  |
+| callback_url   | string         | Y     | URL to which Cregis sends webhook notifications on payment status update to the merchant     |
+| remark       | string         | N     | For the merchant to make remarks about a payment            |
+| valid_time       | integer         | Y     | Validation time in minute (within 10 to 60 minutes) for a payment, a payment will be expired after this assigned validation timeframe            |
+| success_url | string | Y | The payer will be redirected to this URL when clicking on the Return to Store button after a successful payment. Be sure to include "http://" or "https://" in the url      |
+| cancel_url | string | Y |  URL to redirect if the payer does not pay and click on the Cancel button instead. Be sure to include "http://" or "https://" in the url   |
+
+**order_details object**
+
+| Name           | Type           | Required | Description        |
+| ------------- | ------- | -------- | ------------ |
+| shopping_cost | decimal | N       | Shipping cost of the order         |
+| tax_cost      | decimal | N       | Tax amount of the order       |
+| items         | JSONArrayString   | N       | The breakdown details of each item in the order |
+
+​**items object**
+
+| Name           | Type           | Required | Description        |
+| -------------- | -------------- | -------- | ----------------------------- |
+| item_id        | string         | N       | The unique identifier of a payment in the merchant's system                        |
+| item_name      | string         | N       | Name of an item purchase                      |
+| item_price     | decimal        | N       | Unit price of an item                      |
+| price_currency | string         | N       | ISO 4217 3-character currency code. This is the currency associated with the order amount field |
+| item_quantity  | integer(int64) | N       | Quantity of an item ordered                      |
+
+**sub_merchant object**
+
+| Name           | Type           | Required | Description        |
+| ----------------- | ------ | -------- | -------- |
+| sub_merchant_id   | string | N       | ID of sub merchant   |
+| sub_merchant_name | string | N       | Name of sub merchant |
+
+###### Request Example
+
+```json
+{
+    "timestamp": 1734327655,
+    "nonce": "dositl",
+    "sign": "f5be13fdd8c6f63951ca4427359457cb",
+    "order_id": "merchant_order_id_12334567",
+    "order_amount": "5",
+    "order_currency": "USD",
+    "callback_url": "https://callback.com",
+    "remark": "VIP order",
+    "payer_id": "payer001",
+    "payer_name": "payer",
+    "payer_email": "payer@gmail.com",
+    "valid_time": 60,
+    "pid": 1419287201923072,
+    "cancel_url": "https://cancel.merchant.com",
+    "success_url": "https://success.merchant.com",
+    "tokens": "[\"USDT-TRC20\",\"USDT-BEP20\"]",
+    "order_details": "{\"items\": [{\"item_id\": \"10001\", \"item_name\": \"Product1\",\"item_price\": 123.00,\"item_quantity\": 1,\"price_currency\": \"USD\"},{\"item_id\": \"10002\", \"item_name\": \"Product2\",\"item_price\": 100.00,\"item_quantity\": 2,\"price_currency\": \"USD\"}],\"shopping_cost\": 10.88,\"tax_cost\": 10.00}"
+    "sub_merchant": "{\"sub_merchant_id\": \"submerchant10001\",\"sub_merchant_name\": \"Merchant1\"}"
+}
+```
+
+### Response
+
+#### Response Result
+
+| Name  | Type   |  Description        |
+| ----- | ------ | --------------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | Array | Return data    |
+
+#### Response `data` Array Object
+
+| Name           | Type           |  Description        |
+|----------------|----------------|------------------------|
+| cregis_id      | string         | Unique identifier of a payment generated by Cregis             |
+| checkout_url   | string         | Checkout page url        |
+| merchant_name     | string         | Merchant name to be displayed on Cregis checkout page          |
+| merchant_logo_url | string         | Merchant logo to be displayed on Cregis checkout page         |
+| order_amount   | string         | The total payment amount, in the order currency               |
+| order_currency | string         | ISO 4217 3-character currency code. This is the currency associated with the order amount field               |
+| created_time   | integer(int64) | Order creation time in 13-digit <br/> e.g. 1720508269092     |
+| expire_time    | integer(int64) | Order expiration time in 13-digit <br /> e.g. 1720508269092      |
+| payment_info   | array          | Payment detail information                 |
+
+#### `payment_info` object
+
+| Name           | Type           |  Description        |
+|----------------|----------------|------------------------|
+| payment_address      | string         | Wallet address that receives payment             |
+| token_symbol   | string         | crypto asset symbol                |
+| blockchain | string         | Blockchain network               |
+| token_name   | string | crypto token name    |
+| logo_url    | string | crypto token logo               |
+| token_decimals   | integer          | crypto token decimal places                 |
+| receive_amount   | string          | The amount of the order after exchange rate conversion                 |
+| receive_currency   | string          | The order currency code after exchange rate conversion                 |
+| exchange_rate   | string          | Currency exchange rate                 |
+| asset_logo       | string  | crypto asset logo               |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": {
+        "cregis_id": "po1420761885130752",
+        "checkout_url": "http://192.168.2.60:9099?cid=b2fb433c953a43bd9bdfc3f611567887",
+        "merchant_name": null,
+        "merchant_logo_url": null,
+        "order_amount": "5",
+        "order_currency": "HKD",
+        "created_time": 1734328473070,
+        "expire_time": 1734332073070,
+        "payment_info": [
+            {
+                "payment_address": "TX8GZJfLYPtmzRgd3FoiXuCHbptiQ37NSM",
+                "token_symbol": "USDT",
+                "blockchain": "TRON",
+                "token_name": "USDT-TRC20",
+                "logo_url": "https://static.cregis.io/pic/coin/USDT-Tron-TRC20@8x.png",
+                "token_decimals": 6,
+                "receive_amount": "0.642951",
+                "receive_currency": "USDT",
+                "exchange_rate": "0.1285902181",
+                "asset_logo": "https://static.cregis.io/pic/coin/tether%20usd-usdt-with-currency@8x.png"
+            },
+            {
+                "payment_address": "0xf9d70ab23195cfc9c0c14b384a1fd3a3f12cd4f8",
+                "token_symbol": "USDT",
+                "blockchain": "BNB-BSC",
+                "token_name": "USDT-BEP20",
+                "logo_url": "https://static.cregis.io/pic/coin/USDT-BNB%20Chain-BEP20@8x.png",
+                "token_decimals": 18,
+                "receive_amount": "0.642951",
+                "receive_currency": "USDT",
+                "exchange_rate": "0.1285902181",
+                "asset_logo": "https://static.cregis.io/pic/coin/tether%20usd-usdt-with-currency@8x.png"
+            },
+        ]
+    }
+}
+```

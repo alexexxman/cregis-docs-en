@@ -1,0 +1,112 @@
+---
+title: 'Get transactions'
+description: 'Query all transactions'
+---
+
+### API URL
+
+POST /api/v1/trade/page
+
+### Request
+
+#### Request Parameters
+
+| Name      | Type             | Required | Description             |
+| --------- | -------------- | -------- | ----------------------- |
+| cid             | integer(int64) | N       | Cregis ID                                             |
+| tx_id           | string         | N       | txid                                                    |
+| status          | int            | N       | transaction status【0-pending 1-success 2-fail】                          |
+| trade_type      | int            | N       | transaction type【1-in 2-out】                                   |
+| business_type   | int            | N       | business type 【0: common 2:audit 3:api address deposit 4:collect fee 5:collect】   |
+| blocktime_start | integer(int64) | N       | block start timestamp【10-digit】                             |
+| blocktime_end   | integer(int64) | N       | block end timestamp【10-digit】                             |
+| chain_id        | string         | N       | chain_id                                              |
+| token_id        | string         | N       | token_id                                                    |
+| page_num        | int            | N       | page number，default:1                                 |
+| page_size       | int            | N       | page size，default:10，max: 100 |
+| pid             | integer(int64) | Y       | Project ID                                                    |
+| nonce           | string         | Y       | 6-digit random string                                                |
+| timestamp       | integer(int64) | Y       | Timestamp                                                      |
+| sign            | string         | Y       | Signature                                                        |
+
+
+###### Request Example
+
+```
+{
+    "cid": 1410580986806272,
+    "tx_id": "0xa795af0324b1e3b862ae0c271bc8b3d99c7a1b72a6a0088a10c84403d0e6f27d",
+    "status": 1,
+    "trade_type": 1,
+    "business_type": 3,
+    "blocktime_start": 1721900581,
+    "blocktime_end":1721998633,
+    "chain_id": "2610",
+    "token_id": "0x337610d27c682e347c9cd60bd4b3b107c9d34ddd",
+    "page_num": 1,
+    "page_size": 10,
+    "pid": 1382528827416576,
+    "remark": "payout",
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+
+### Response
+
+#### Response Parameters
+
+| Name      | Type   | Description                |
+| --------- | ------ | -------------------------- |
+| code      | string | Response code              |
+| msg       | string | Response message           |
+| data      | object | Response data object       |
+
+##### Response `data` object
+
+| Name      | Type   | Description                       |
+| --------- | ------ | --------------------------------- |
+| pid          | integer(int64) | Project Id                           |
+| cid          | integer(int64) | Cregis Id                         |
+| chain_id     | string         | chain_id                             |
+| token_id     | string         | token_id                           |
+| currency     | string         | token_name                           |
+| to_address   | string         | transaction to address                             |
+| amount       | string         | transaction amount                               |
+| status       | integer(int32) | transaction status【0-pending 1-success 2-fail】 |
+| txid         | string         | tx_id                           |
+| block_height | string         | block height                           |
+| block_time   | integer(int64) | block timestamp                           |
+| fee          | string         | transaction fee                           |
+| from_address | string         | transaction from address                           |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": {
+        "total": 1,
+        "rows": [
+            {
+                "pid": 1409650233999360,
+                "cid": 1410580986806272,
+                "chain_id": "2610",
+                "token_id": "0x337610d27c682e347c9cd60bd4b3b107c9d34ddd",
+                "to_address": "0x2d4124dcf3ca13acaff5579e1aa962c968df9092",
+                "amount": "0.1",
+                "status": 1,
+                "txid": "0xa795af0324b1e3b862ae0c271bc8b3d99c7a1b72a6a0088a10c84403d0e6f27d",
+                "block_height": "42393516",
+                "block_time": 1721900581,
+                "fee": "0.00258015",
+                "from_address": "0xbd5ba5a08849c8a2c8ef188778ec383682b0063b"
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10
+    }
+}
+```

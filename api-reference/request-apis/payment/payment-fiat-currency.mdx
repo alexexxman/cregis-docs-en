@@ -1,11 +1,11 @@
 ---
-title: 'Payment > Get support crypto currency'
-description: 'View support Cryptocurrencies'
+title: 'Get support fiat currency'
+description: 'Retrieves all currencies'
 ---
 
 ### API URL
 
-POST /api/v1/order_crypto_currency
+POST /api/v1/order_fiat_currency
 
 ### Request
 
@@ -16,7 +16,6 @@ POST /api/v1/order_crypto_currency
 | nonce      | string         | Y     | 6 random string |
 | timestamp  | integer(int64) | Y     | Timestamp            |
 | sign       | string         | Y     | Signature            |
-
 
 ###### Request Example
 
@@ -43,11 +42,10 @@ POST /api/v1/order_crypto_currency
 
 | Name  | Type     | Description          |
 |----------------|----------------|------------------------|
-| token_symbol      | string         | Token Symbol             |
-| blockchain   | string         | Blockchain Network               |
-| token_decimals   | string         | Decimal Places               |
-| token_name | string         | Token Name              |
-| logo_url   | string | Token Logo    |
+| currency_code      | string         | Currency code [e.g., CNY, HKD]  |
+| currency_decimals   | string        | Decimal places                  |
+| currency_symbol   | string         | Currency symbol [e.g., ￥, $]    |
+| currency_name | string         | Currency name [e.g., US Dollar]      |
 
 
 ###### Response Example
@@ -58,18 +56,16 @@ POST /api/v1/order_crypto_currency
     "msg": "ok",
     "data": [
         {
-            "token_symbol": "USDT",
-            "blockchain": "BNB-BSC",
-            "token_decimals": 18,
-            "token_name":"USDT-BEP20",
-            "logo_url":""
+            "currency_code": "CNY",
+            "currency_decimals": 2,
+            "currency_symbol": "￥",
+            "currency_name": "RMB"
         },
         {
-            "token_symbol": "USDT",
-            "blockchain": "TRON",
-            "token_decimals": 6,
-            "token_name":"USDT-TRC20",
-            "logo_url":""
+            "currency_code": "HKD",
+            "currency_decimals": 2,
+            "currency_symbol": "$",
+            "currency_name": "Dollar"
         }
     ]
 }

@@ -5,7 +5,7 @@ description: 'The notification for payment result.'
 
 ## Callback API
 
-Notify the caller when the order status changes using the provided `callback_url`, details for [Create payment order](/api-reference/request-apis/payment/payment-create) `callback_url` param
+Notify the caller when the order status changes using the provided `callback_url`, details for [Create payment order](/api-reference/request-apis/payment/payment-v2-create) `callback_url` param
 
 #### Callback event
 
@@ -37,7 +37,7 @@ Notify the caller when the order status changes using the provided `callback_url
 | Name             | Type            | Description       |
 | ---------------- | --------------- | ----------------- |
 | cregis_id              | string  | Cregis unique id        |
-| order_id              | string  | Merchant's custom unique order ID.        |
+| order_id              | string  | Merchant's custom unique order ID        |
 | receive_amount         | string  | The amount of the order after exchange rate conversion         |
 | receive_currency       | string  | The order currency code after exchange rate conversion        |
 | pay_amount       | string  | Actual Received Amount        |
@@ -46,18 +46,18 @@ Notify the caller when the order status changes using the provided `callback_url
 | order_currency       | string  | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant        |
 | exchange_rate       | string  | Exchange rate        |
 | payment_address       | string  | Payment wallet address        |
-| created_time        | integer(int64)  | Order creation time. 13-digit timestamp         |
-| cancel_time        | integer(int64)  | Order cancelled time. 13-digit timestamp         |
-| transact_time        | integer(int64)  | Order payment completed time. 13-digit timestamp         |
-| valid_time        | integer  | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes         |
-| status        | string  | Order Status - new: Initial status of the order  - paid: The order has been successfully paid - expired:The order has exceeded the valid time         |
+| created_time        | integer(int64)  | Order creation timestamp in 13-digit          |
+| cancel_time        | integer(int64)  | Order expiration cancel timestamp in 13-digit        |
+| transact_time        | integer(int64)  |  Order transaction timestamp in 13-digit          |
+| valid_time        | integer  | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes        |
+| status        | string  | Order Status: <br /> new - Initial status of the order <br /> paid - The order has been successfully paid <br /> expired - The order has exceeded the valid time <br /> paid_over - Payment exceeds the order amount <br /> paid_partial - Payment is less than the order amount         |
 | remark        | string  | Remarks         |
 | tx_id        | string  | Transaction hash         |
-| payer_id        | string  | Payer unique ID         |
-| payer_name        | string  | Payer's name         |
+| payer_id        | string  | Payer unique ID. No more than 32 characters         |
+| payer_name        | string  | Payer's name. No more than 32 characters         |
 | payer_email        | string  | Payer email         |
 
-###### Example
+###### Request Example
 
 ```json
 {
@@ -82,7 +82,7 @@ Notify the caller when the order status changes using the provided `callback_url
         "payer_id": "p_001",
         "payer_name": "",
         "payer_email": "1538536069@qq.com"
-        "remark":"Purchase Products",
+        "remark":"remark",
         "tx_id": "0x0502f2bfd96cd0f55edea3343513940f3af7fe594eae77f08d2f46ea24829b11"
     }
 }
