@@ -1,5 +1,5 @@
 ---
-title: 'Payout > Create'
+title: 'Create payout order'
 description: 'Create the payout order.'
 ---
 
@@ -17,7 +17,7 @@ POST /api/v1/payout
 | currency       | string         | Yes      | Currency Identifier|
 | address        | string         | Yes      | Address            |
 | amount         | string         | Yes      | Amount             |
-| callback_url   | string         | Yes      | Callback URL, If funds are successfully received, refer to [Callback > Payout](/api-reference/callback/payout) section for callback details.     |
+| callback_url   | string         | Yes      | Callback URL, If funds are successfully received, refer to [Payout notify](/api-reference/callback/payout) section for callback details.     |
 | third_party_id | string         | Yes      | Caller Customized ID |
 | remark         | string         | No      | Remark             |
 | memo           | string         | No      | memo or tag on blockchain，Only support Ton and Xrp   |

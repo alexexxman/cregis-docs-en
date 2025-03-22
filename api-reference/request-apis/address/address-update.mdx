@@ -1,0 +1,58 @@
+---
+title: 'Update address info'
+description: 'Update callback_url,status,alias for address'
+---
+
+### API URL
+
+POST /api/v1/address/update
+
+### Request
+
+#### Request Parameters
+
+| Name       | Type           | Required | Description          |
+| ------------- | --------------- | -------- | ------------- |
+| address      | string         | Y       | Target address to update          |
+| callback_url | string         | N       | callback notify url 【At least one of callback_url, alias, or status must be provided】         |
+| alias        | string         | N       | Display Name 【At least one of callback_url, alias, or status must be provided】     |
+| status       | string         | N       | status【0-enable 1-disable】【At least one of callback_url, alias, or status must be provided】 |
+| pid          | integer(int64) | Y       | Project id                                                      |
+| nonce        | string         | Y       | 6 random string                                                |
+| timestamp    | integer(int64) | Y       | Timestamp                                                       |
+| sign         | string         | Y       | Signature                                                         |
+
+###### Request Example
+
+```json
+{
+    "address":"TAxmdDrQGzW37nm1xH4NXXfff2tUTaTecR",
+    "callback_url": "http://xxx.com/address/callback",
+    "alias": "lily address",
+    "status": "1",
+    "pid": 1382528827416576,
+    "nonce": "hwlkk6",
+    "timestamp": 1688004243314,
+    "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | ---------------- |
+| code  | string | Return code           |
+| msg   | string | Return message        |
+| data  | object | Return data    |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": null
+}
+```
+
