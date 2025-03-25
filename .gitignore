@@ -1,0 +1,13 @@
+# intellij files
+.idea/
+.vscode/
+
+# MaxOS files
+.DS_Store
+*.swp
+
+bak/*
+
+node_modules/
+
+package-lock.json
