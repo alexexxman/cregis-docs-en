@@ -1,0 +1,83 @@
+---
+title: 'Quick Start'
+description: 'Quickly learn how to use the Cregis Developer API'
+---
+
+## Download the Cregis PC Client
+
+Visit the download link [https://www.cregis.com/download](https://www.cregis.com/download)
+
+Select your operating system to download the corresponding Cregis installation package. The package sizes are approximately:
+- **Mac**: 148M
+- **Windows**: 105M
+
+<p align="center">
+    <img
+        src="/images/cregis-desktop.png"
+        alt="Cregis Desktop App" width="auto" height="auto"
+    />
+</p>
+
+## Register an Account and Log In
+
+For details, refer to [Registration and Login](https://support.cregis.com/getting-started/publish-your-docs)
+
+1. Register a Cregis account
+2. Bind Google Authenticator
+3. Log in to your Cregis account
+
+## Generate API Key
+1. Open the Cregis App
+2. In "Wallet", create a wallet named "my-wallet"
+<p align="center">
+    <img
+        src="/images/frontpage-wallet.jpg"
+        alt="frontpage wallet" width="auto" height="auto"
+    />
+</p>
+<p align="center">
+    <img
+        src="/images/create-wallet.png"
+        alt="cregis wallet" width="auto" height="auto"
+    />
+</p>
+3. In "Project", create a project named "my-first-project"
+<p align="center">
+    <img
+        src="/images/frontpage-project.jpg"
+        alt="frontpage project" width="auto" height="auto"
+    />
+</p>
+The simplest scenario is address generation, as an example:
+Check "Generate Address", bind the wallet "my-wallet", and confirm
+<p align="center">
+    <img
+        src="/images/create-project.png"
+        alt="create project" width="auto" height="auto"
+    />
+</p>
+4. The App will automatically generate your API Key. Click the small API Key button to view details
+<p align="center">
+    <img
+        src="/images/got-api-key.jpg"
+        alt="got api key" width="auto" height="auto"
+    />
+</p>
+<p align="center">
+    <img
+        src="/images/show-api-key.png"
+        alt="show api key" width="auto" height="auto"
+    />
+</p>
+Please keep your **API Key**, **Gateway Server**, and **Project NO.** safe and do not share them with others.
+
+## Test API Key
+
+1. [Choose the SDK you need](/sdk-tool/sdk): Java, Go, PHP, C#
+
+2. Prepare the 3 key pieces of information required by the SDK:
+API Key, Gateway Server, Project NO.
+
+3. [Java Test Case](https://github.com/0xcregis/cregis-java-sdk/blob/master/cregis-sdk-core/src/test/java/com/cregis/core/HutoolClientTest.java)
+
+For details on constructing HTTP Requests, refer to [Request Description](/api-reference/request)

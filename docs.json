@@ -16,7 +16,7 @@
           {
             "group": "Overview",
             "pages": [
-              "introduction",
+              "quickstart",
               "usecases",
               "integration"
             ]
@@ -72,15 +72,7 @@
             ]
           },
           {
-            "group": "Payment-V1",
-            "pages": [
-              "api-reference/request-apis/payment/payment-create",
-              "api-reference/request-apis/payment/payment-query",
-              "api-reference/callback/payment"
-            ]
-          },
-          {
-            "group": "Payment-V2",
+            "group": "Payment",
             "pages": [
               "api-reference/request-apis/payment/payment-v2-create",
               "api-reference/request-apis/payment/payment-v2-query",
