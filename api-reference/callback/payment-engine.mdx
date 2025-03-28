@@ -5,7 +5,7 @@ description: 'The notification for payment result.'
 
 ## Callback API
 
-Notify the caller when the order status changes using the provided `callback_url`, details for [Create payment order](/api-reference/request-apis/payment/payment-v2-create) `callback_url` param
+Notify the caller when the order status changes using the provided `callback_url`, details for [Create payment order](/api-reference/request-apis/payment/payment-engine-create) `callback_url` param
 
 #### Callback event
 
@@ -66,13 +66,13 @@ Notify the caller when the order status changes using the provided `callback_url
     "data": {
         "cregis_id": "po20240703132452000",
         "order_id": "c9231e604da54469a735af3f449c880f",
-        "receive_amount": "20.01",
+        "receive_amount": "12.86",
         "receive_currency": "USDT",
-        "pay_amount": "20.01",
+        "pay_amount": "12.86",
         "pay_currency": "USDT",
         "order_amount": "100",
-        "order_currency": "CNY",
-        "exchange_rate": "7.0000000001",
+        "order_currency": "HKD",
+        "exchange_rate": "0.1286",
         "payment_address": "0xd38c2cf366a731dcbe4a32c7ef24ff96d080ca7e",
         "created_time": 1719993183015,
         "cancel_time": null,
@@ -81,7 +81,7 @@ Notify the caller when the order status changes using the provided `callback_url
         "status": "paid",
         "payer_id": "p_001",
         "payer_name": "",
-        "payer_email": "1538536069@qq.com"
+        "payer_email": "test@mail.com"
         "remark":"remark",
         "tx_id": "0x0502f2bfd96cd0f55edea3343513940f3af7fe594eae77f08d2f46ea24829b11"
     }
