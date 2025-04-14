@@ -1,0 +1,49 @@
+---
+title: 'Quick Start'
+description: 'Quickly learn how to use the Cregis Developer API'
+---
+
+## Description
+
+The project API supports creating addresses for deposit and withdrawal, which is commonly used for deposit and withdrawal management of users on exchanges and other platforms. <br/>
+
+### _Address deposit_
+
+> A new address will be generated for each successful call, which can be called when the user successfully registers. The generated address will be set as the user's fixed recharge address. When the on-chain recharge notification of the address is received, the user will be recharged.
+> Note: EVM type addresses can share the same address, for example: USDT-BEP20 and USDT-ERC20 can both use ETH addresses for recharge
+
+1、Create wallet <br/>
+2、Create a project and select 'Generate address'
+<p align="center">
+    <img
+        src="../../../images/api-address.png"
+        alt="frontpage project" width="auto" height="auto"
+    />
+</p>
+3、Get API key and other developer information
+<p align="center">
+    <img
+        src="../../../images/api-develop.png"
+        alt="frontpage project" width="auto" height="auto"
+    />
+</p>
+
+### _Withdrawal_
+
+> The platform user calls this API when withdrawing funds. The transaction will be signed in the CREGIS wallet and then uploaded to the blockchain. The user's funds in the platform can be deducted based on the actual result notification after the transaction is uploaded to the blockchain.
+
+1、Policy settings (optional)，<a href='https://support.cregis.com/risk-management/policy-engine' target="_blank">Understand the strategy</a> <br/>
+2、Create a project and select ‘Transfer‘
+<p align="center">
+    <img
+        src="../../../images/api-payout.png"
+        alt="frontpage project" width="auto" height="auto"
+    />
+</p>
+3、Get API key and other developer information
+<p align="center">
+    <img
+        src="../../../images/api-develop.png"
+        alt="frontpage project" width="auto" height="auto"
+    />
+</p>
