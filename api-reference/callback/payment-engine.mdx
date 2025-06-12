@@ -12,7 +12,11 @@ Notify the caller when the order status changes using the provided `callback_url
 | Callback Event Name (event_name) | Callback Event Type (event_type) | Description            |
 | ------ | ------------ | ---------- |
 | order      | expired     | Order Timeout Notification |
-| order      | paid      | Payment Completed Notification |
+| order      | paid        | Payment Completed Notification |
+| order      | partial_paid     | Partial Payment completion notification |
+| order      | overpaid      | Overpayment completion notification |
+| order      | refunded     | Order refund notification |
+| order      | paid_remain      | Additional payment for the order remaining amount Notification |
 
 #### Request method
 
@@ -32,7 +36,7 @@ Notify the caller when the order status changes using the provided `callback_url
 | timestamp        | integer(int64)  | Timestamp         |
 | sign             | string          | Signature         |
 
-#### `data` Object
+#### Paid/Partial_Paid/Overpaid order `data` Object
 
 | Name             | Type            | Description       |
 | ---------------- | --------------- | ----------------- |
@@ -56,6 +60,91 @@ Notify the caller when the order status changes using the provided `callback_url
 | payer_id        | string  | Payer unique ID. No more than 32 characters         |
 | payer_name        | string  | Payer's name. No more than 32 characters         |
 | payer_email        | string  | Payer email         |
+
+#### Expired order `data` Object
+
+| Name             | Type            | Description       |
+| ---------------- | --------------- | ----------------- |
+| cregis_id | string | Cregis unique id | 
+| order_id | string | Merchant's custom unique order ID. | 
+| order_amount | string | Order transaction amount, defined by the merchant | 
+| order_currency | string | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant | 
+| created_time | integer(int64) | Order creation time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| cancel_time | integer(int64) | Order cancelled time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| valid_time | integer | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes. | 
+| status | string | Order Status <br/> new: Initial status of the order <br/> paid: The order has been successfully paid <br/> expired: The order has exceeded the valid time <br/> paid_over: Payment exceeds the order amount <br/> paid_partial: Payment is less than the order amount | 
+| remark | string | Remarks | 
+| payer_id | string | Payer unique ID. No more than 32 characters | 
+| payer_name | string | Payer's name. No more than 32 characters | 
+| payer_email | string | Payer email |
+
+
+#### Refund order `data` Object
+
+| Name             | Type            | Description       |
+| ---------------- | --------------- | ----------------- |
+| cregis_id | string | Cregis unique id | 
+| order_id | string | Merchant's custom unique order ID. | 
+| receive_amount | string | The amount of the order after exchange rate conversion | 
+| receive_currency | string | The order currency code after exchange rate conversion | 
+| pay_amount | string | Actual Received Amount | 
+| pay_currency | string | Received currency | 
+| order_amount | string | Order transaction amount, defined by the merchant | 
+| order_currency | string | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant | 
+| exchange_rate | string | Exchange rate | 
+| payment_address | string | Payment wallet address | 
+| created_time | integer(int64) | Order creation time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| cancel_time | integer(int64) | Order cancelled time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| transact_time | integer(int64) | Order payment completed time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| valid_time | integer | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes. | 
+| status | string | Order Status <br/> new: Initial status of the order <br/> paid: The order has been successfully paid <br/> expired: The order has exceeded the valid time <br/> paid_over: Payment exceeds the order amount <br/> paid_partial: Payment is less than the order amount | 
+| remark | string | Remarks | 
+| tx_id | string | Transaction hash | 
+| payer_id | string | Payer unique ID. No more than 32 characters | 
+| payer_name | string | Payer's name. No more than 32 characters | 
+| payer_email | string | Payer email | 
+| refund_requested | string | Whether a refund has been requested to the order <br/> no: no refund request record <br/> yes: a refund is requested | 
+| type | int | Refund type <br/> 0: partial refund <br/> 1: full refund | 
+| refund_id | long | Unique identifier of a refund generated by Cregis | 
+| refund_address | string | Refund receiving address | 
+| refund_currency | string | Refund currenccy：USDT-BEP20，USDT-TRC20 | 
+| refund_amount | string | Refund amount | 
+| refund_fee | string | Refund handling fee that's paid by receiver | 
+| actual_refund_amount | string | The actual refund amount after deducting the refund handling fee = refund_amount - refund_fee | 
+| refund_status | int | Refund status <br/> 0: refund in progress <br/> 1: refund successful <br/> 2: refund failed | 
+| refund_tx_id | string | Refund transaction hash | 
+| refund_created_time | string | Refund request creation timestamp <br/> e.g. 1720508269092 means 2024-07-09 14:57:49 092 | 
+| refund_transact_time | string | Refund request transaction time <br/> e.g. 1720508269092 即 2024-07-09 14:57:49 092 |
+
+#### Additional order `data` Object
+
+| Name             | Type            | Description       |
+| ---------------- | --------------- | ----------------- |
+| cregis_id | string | Cregis unique id | 
+| order_id | string | Merchant's custom unique order ID. | 
+| receive_amount | string | The amount of the order after exchange rate conversion | 
+| receive_currency | string | The order currency code after exchange rate conversion | 
+| pay_amount | string | Actual Received Amount | 
+| pay_currency | string | Received currency | 
+| order_amount | string | Order transaction amount, defined by the merchant | 
+| order_currency | string | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant | 
+| exchange_rate | string | Exchange rate | 
+| payment_address | string | Payment receiving wallet address(Pay to address) | 
+| created_time | integer(int64) | Order creation time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| cancel_time | integer(int64) | Order cancelled time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| transact_time | integer(int64) | Order payment completed time. 13-digit timestamp. <br/> i.e. 1720508269092 is 2024-07-09 14:57:49 092 | 
+| valid_time | integer | To determine the order expiration time , if not specified, the order expiration time will be 30 minutes as default. Please input in minutes. Minimum is 10 minutes. | 
+| status | string | Order Status <br/> new: Initial status of the order <br/> paid: The order has been successfully paid <br/> expired: The order has exceeded the valid time <br/> paid_over: Payment exceeds the order amount <br/> paid_partial: Payment is less than the order amount | 
+| remark | string | Remarks | 
+| tx_id | string | Transaction hash | 
+| payer_id | string | Payer unique ID. No more than 32 characters | 
+| payer_name | string | Payer's name. No more than 32 characters | 
+| payer_email | string | Payer email | 
+| additional_pay_currency | string | Additional payment's currency | 
+| additional_pay_amount | string | Additional payment's amount | 
+| additional_payment_address | string | Additional payment's receiving address(Pay to address) | 
+| additional_payment_tx_id | string | Additional payment's transaction hash | 
+| additional_payment_tx_id | integer(int64) | Additional payment's transaction time |
 
 ###### Request Example
 
