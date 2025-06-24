@@ -49,9 +49,9 @@ POST /api/v2/order/info
 | order_id          | string         | used by the merchant to assign their own internal order ID to a payment                                               |
 | order_amount      | string         | Order transaction amount, defined by the merchant                                                 |
 | order_currency    | string         | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant                                             |
-| created_time      | integer(int64) | Order creation timestamp in 13-digit                                   |
-| cancel_time       | integer(int64) | Order expiration cancel timestamp in 13-digit                                  |
-| transact_time     | integer(int64) | Order transaction timestamp in 13-digit                          |
+| created_time      | integer(int64) | Order creation timestamp in 13-digit, eg:1734328473070                                  |
+| cancel_time       | integer(int64) | Order expiration cancel timestamp in 13-digit, eg:1734328473070                                  |
+| transact_time     | integer(int64) | Order transaction timestamp in 13-digit, eg:1734328473070                          |
 | valid_time        | integer(int32) | Validation time in minute (within 10 to 60 minutes) for a payment, a payment will be expired after this assigned validation timeframe                       |
 | status            | string         | Order Status: <br /> new - Initial status of the order <br /> paid - The order has been successfully paid <br /> expired - The order has exceeded the valid time <br /> paid_over - Payment exceeds the order amount <br /> paid_partial - Payment is less than the order amount |
 | refund_requested  | string         | Whether a refund has been requested to the order <br/> no: no refund request record <br/> yes: a refund is requested |
@@ -79,6 +79,8 @@ POST /api/v2/order/info
 | pay_currency     | string | Received currency             |
 | exchange_rate    | string | Exchange rate                 |
 | tx_id            | string | Transaction hash                 |
+| blockchain   | string          | blockchain                 |
+| token_name   | string          | token_name                 |
 
 **payment_info object**
 
@@ -155,14 +157,27 @@ POST /api/v2/order/info
         "order_currency": "HKD",
         "created_time": 1734328473070,
         "cancel_time": null,
-        "transact_time": null,
+        "transact_time": 1734328473872,
         "valid_time": 60,
-        "status": "new",
+        "status": "paid",
         "payer_id": "payer001",
         "payer_name": "payer",
-        "payer_email": "1538536064@qq.com",
-        "remark": "收银台备注",
-        "payment_detail": null,
+        "payer_email": "12345678@email.com",
+        "remark": "remark",
+        "payment_detail":  [
+            {
+                "payment_address": "TUX9zGoPFVXd6RC7pg18nfVLATeN9vgBeX",
+                "from_address": "THMxY6QeMYqACWs8fiL4VGBz2ZJRp4mDhT",
+                "receive_amount": "10.00",
+                "receive_currency": "USDT",
+                "pay_amount": "10",
+                "pay_currency": "USDT",
+                "exchange_rate": "1",
+                "tx_id": "d51bc829da5ad05c14f8f0a6ae16708129e485346ad91b8d5f2d33e490b91815",
+                "blockchain": "TRON",
+                "token_name": "USDT-TRC20"
+            }
+        ],
         "payment_info": [
             {
                 "payment_address": "0xf9d70ab23195cfc9c0c14b384a1fd3a3f12cd4f8",

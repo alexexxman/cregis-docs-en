@@ -36,10 +36,10 @@ HTTP POST   application/json
 | currency       | string         | Currency Label |
 | address        | string         | Address        |
 | amount         | string         | Amount         |
-| status         | integer(int32) | Status         |
+| status         | string         | Status         |
 | txid           | string         | Transaction hash |
 | block\_height  | string         | Block Height   |
-| block\_time    | integer(int64) | Block Time     |
+| block\_time    | string         | Block Time     |
 | memo           | string         | memo or tag on blockchain，Only support Ton and Xrp |
 | nonce          | string         | 6-character random string |
 | timestamp      | integer(int64) | Timestamp      |
@@ -56,10 +56,10 @@ HTTP POST   application/json
     "currency": "TRX",
     "amount": "1.2",
     "address":"TXsmKpEuW7qWnXzJLGP9eDLvWPR2GRn1FS",
-    "status": 1,
+    "status": "1",
     "txid": "6dd05b0972075542219a3fcc116c58feaf9480f1f698cc46c4367ded83955cfd",
     "block_height": "34527604",
-    "block_time": 1686814482000,
+    "block_time": "1686814482000",
     "nonce": "ubqso3",
     "timestamp": 1687850657960,
     "sign": "f5be13fdd8c6f63951ca4427359457cb"
