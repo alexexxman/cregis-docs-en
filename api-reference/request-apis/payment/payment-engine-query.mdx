@@ -47,36 +47,61 @@ POST /api/v2/order/info
 |----------------|----------------|------------------------|
 | cregis_id         | string         | Cregis unique id                                               |
 | order_id          | string         | used by the merchant to assign their own internal order ID to a payment                                               |
-| order_amount      | string         | Order transaction amount, defined by the merchant                                                 |
-| order_currency    | string         | Order currency code, i.e. ISO 4217 currency code, such as CNY, HKD, defined by the merchant                                             |
-| created_time      | integer(int64) | Order creation timestamp in 13-digit, eg:1734328473070                                  |
-| cancel_time       | integer(int64) | Order expiration cancel timestamp in 13-digit, eg:1734328473070                                  |
-| transact_time     | integer(int64) | Order transaction timestamp in 13-digit, eg:1734328473070                          |
-| valid_time        | integer(int32) | Validation time in minute (within 10 to 60 minutes) for a payment, a payment will be expired after this assigned validation timeframe                       |
+| order_amount      | string         | Order amount                                                 |
+| order_currency    | string         | Order currency code                                             |
+| created_time      | integer(int64) | Order creation time in 13-digit unix timestamp format <br/> e.g. 1720508269092 (2024-07-09 14:57:49 092)                                  |
+| cancel_time       | integer(int64) | Order cancellation time in 13-digit unix timestamp format <br/> e.g. 1720508269092 i.e. 2024-07-09 14:57:49 092                                 |
+| transact_time     | integer(int64) | Order completion time in 13-digit unix timestamp format <br/> e.g. 1720508269092 i.e. 2024-07-09 14:57:49 092                          |
+| valid_time        | integer(int32) | Unit: Minutes (Integer value from 10 to 60) <br/> The valid time for this order. If the valid time is expired, the payment will not be accepted.                       |
 | status            | string         | Order Status: <br /> new - Initial status of the order <br /> paid - The order has been successfully paid <br /> expired - The order has exceeded the valid time <br /> paid_over - Payment exceeds the order amount <br /> paid_partial - Payment is less than the order amount |
 | refund_requested  | string         | Whether a refund has been requested to the order <br/> no: no refund request record <br/> yes: a refund is requested |
 | payer_id          | string         | Merchant to assign their own internal user ID to associate with a payment                                                   |
 | payer_name        | string         | Payer's name                                                   |
 | payer_email       | string         | Payer's email                                                   |
 | remark            | string         | For the merchant to make remarks about a payment                                                  |
-| payment_detail    | array          | Payment details                                                 |
-| payment_info      | array          | Payment related information                                                 |
+| payment_detail    | ArrayObject    | Payment History                                       |
+| payment_info      | ArrayObject    | Information to request payment                                              |
 | order_details     | Object         | The breakdown details of an order, each item will be displayed on the Cregis checkout page                                                     |
-| settlement_status | string         | Order settlement status: <br /> unsettled : settlement not processed yet <br /> settling : settlement processing <br /> settled : settlement completed                      |
+| settlement_status | string         | Settlement status: <br /> unsettled : settlement not processed yet <br /> settling : settlement processing <br /> settled : settlement completed                      |
 | settlement_type   | string         | Settlement type：<br /> system : settlement is handled automatically <br /> manual •: settlement is handled manually                 |
 | sub_merchant      | Object         | If the merchant has a sub merchant assigned under this acquiring project, it can be used by the merchant to assign their own internal sub merchant ID to associate with a payment                |
 | refund_data       | object         | Refund related information   |
+
+**order_details object**
+
+| Name           | Type  | Description          |
+| ------------- | ------- | ------------ |
+| shopping_cost | decimal |  Shipping cost of the order     |
+| tax_cost      | decimal | Tax amount of the order       |
+| items         | ArrayObject   | The breakdown details of each item in the order |
+
+​**items object**
+
+| Name              | Type  | Description          |
+| -------------- | -------------- | ----------------------------- |
+| item_id        | string         |  The unique identifier of the item |
+| item_name      | string         |  Item name                      |
+| item_price     | decimal        |  Item unit price                      |
+| price_currency | string         |  Item currency                       |
+| item_quantity  | integer(int64) |  Item quantity                      |
+
+**sub_merchant object**
+
+| Name              | Type  | Description          |
+| ----------------- | ------ | -------- |
+| sub_merchant_id   | string | ID of sub merchant   |
+| sub_merchant_name | string | Name of sub merchant |
 
 **payment_detail object**
 
 | Name              | Type  | Description          |
 | ---------------- | ------ | ------------------------ |
 | payment_address  | string | Payment wallet address (Pay to address)                 |
-| from_address     | string | Payer's wallet address (Pay from address)                 |
-| receive_amount   | string | The amount of the order after exchange rate conversion     |
-| receive_currency | string | The order currency code after exchange rate conversion |
+| from_address     | string | Payer wallet address                 |
+| receive_amount   | string | Converted order amount     |
+| receive_currency | string | Converted order currency |
 | pay_amount       | string | Actual received amount             |
-| pay_currency     | string | Received currency             |
+| pay_currency     | string | Received currency         |
 | exchange_rate    | string | Exchange rate                 |
 | tx_id            | string | Transaction hash                 |
 | blockchain   | string          | blockchain                 |
@@ -87,47 +112,22 @@ POST /api/v2/order/info
 | Name             | Type   | Description          |
 | ---------------- | ------- | ---------------------- |
 | payment_address  | string  | Wallet address that receives payment             |
-| token_symbol     | string  | crypto asset symbol                |
+| token_symbol     | string  | Currency. Can refer to the parameter of tokens in order creation                |
 | blockchain       | string  | Blockchain network               |
 | token_name       | string  | crypto token name    |
 | logo_url         | string  | crypto token logo               |
 | token_decimals   | integer | crypto token decimal places                 |
-| receive_amount   | string  | The amount of the order after exchange rate conversion                 |
-| receive_currency | string  | The order currency code after exchange rate conversion                 |
+| receive_amount   | string  | Converted order amount                 |
+| receive_currency | string  | Converted order currency                 |
 | exchange_rate    | string  | Currency exchange rate                 |
 | asset_logo       | string  | crypto asset logo               |
-
-**order_details object**
-
-| Name           | Type           | Required | Description        |
-| ------------- | ------- | -------- | ------------ |
-| shopping_cost | decimal | N       | Shipping cost of the order         |
-| tax_cost      | decimal | N       | Tax amount of the order       |
-| items         | JSONArrayString   | N       | The breakdown details of each item in the order |
-
-​**items object**
-
-| Name           | Type           | Required | Description        |
-| -------------- | -------------- | -------- | ----------------------------- |
-| item_id        | string         | N       | The unique identifier of a payment in the merchant's system                        |
-| item_name      | string         | N       | Name of an item purchase                      |
-| item_price     | decimal        | N       | Unit price of an item                      |
-| price_currency | string         | N       | ISO 4217 3-character currency code. This is the currency associated with the order amount field |
-| item_quantity  | integer(int64) | N       | Quantity of an item ordered                      |
-
-**sub_merchant object**
-
-| Name           | Type           | Required | Description        |
-| ----------------- | ------ | -------- | -------- |
-| sub_merchant_id   | string | N       | ID of sub merchant   |
-| sub_merchant_name | string | N       | Name of sub merchant |
 
 **refund_data object**
 
 | Name           | Type           | Required | Description        |
 | ----------------- | ------ | -------- | -------- |
-| refund_id | long | Unique identifier of a refund generated by Cregis |
-| cregis_id | long | Unique identifier of a payment generated by Cregis |
+| refund_id | integer(int64) | Unique identifier of a refund generated by Cregis |
+| cregis_id | string | Unique identifier of a payment generated by Cregis |
 | reference_id | string | used by the merchant to assign their own internal order ID to a payment |
 | recipient_id | string | Merchant to assign their own internal user ID to associate with a refund |
 | recipient_name | string | Refund receiver's name |
@@ -137,7 +137,7 @@ POST /api/v2/order/info
 | network | string | Refund payment network/blockchain |
 | refund_amount | string | Refund amount |
 | refund_fee | string | Refund handling fee that's paid by receiver |
-| actual_refund_amount | string | The actual refund amount after deducting the refund handling fee = refund_amount - refund_fee |
+| actual_refund_amount | string | The actual refund amount after the gas fee deduction |
 | type | int | Refund type <br/> 0: partial refund <br/> 1: full refund |
 | refund_status | int | Refund status <br/> 0: refund in progress <br/> 1: refund successful <br/> 2: refund failed |
 | refund_tx_id | string | Refund transaction hash |
