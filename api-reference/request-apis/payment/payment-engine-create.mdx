@@ -12,54 +12,54 @@ POST /api/v2/checkout
 #### Request Parameters
 | Name           | Type           | Required | Description        |
 |------------|----------------|----------|----------------------|
-| pid        | integer(int64) | Y     | Project id           |
-| nonce      | string         | Y     | 6 random string |
-| timestamp  | integer(int64) | Y     | Timestamp            |
-| sign       | string         | Y     | Signature            |
-| order_id   | string         | Y     | Can be used by the merchant to assign their own internal order ID to a payment. No more than 128 characters |
-| order_amount   | string         | Y     | The total payment amount, in the order currency |
-| order_currency   | string         | Y     | ISO 4217 3-character currency code. This is the currency associated with the order amount field <br/> <br/> eg: USD、HKD  <br/> Get support currency from [Get support fiat currency](/api-reference/request-apis/payment/payment-fiat-currency) |
-| order_details | JSONString | N | The breakdown details of an order, each item will be displayed on the Cregis checkout page, under order details section |
-| sub_merchant | JSONString | N | If the merchant has a sub merchant assigned under this acquiring project, it can be used by the merchant to assign their own internal sub merchant ID to associate with a payment. <br /> Field: <br /> sub_merchant_id <br /> sub_merchant_name |
-| payer_id       | string         | Y     | Can be used by the merchant to assign their own internal user ID to associate with a payment            |
-| payer_name       | string         | N     | Payer's name           |
-| payer_email       | string         | N     | Payer's email            |
-| tokens | ArrayString | N | By inputing corresponding token_name to this field to control the tokens you allow your customers to pay in. If this field is left blank, that means you accept all tokens supported by Cregis as the payin tokens by customers. <br /><br/> eg: ["USDT-TRC20","USDT-BEP20"] <br/> Get support currency from [Get support crypto currency](/api-reference/request-apis/payment/payment-crypto-currency)  |
+| pid        | integer(int64) | Y     | Unique identifier of the acquiring project in Cregis           |
+| nonce      | string         | Y     | A 6-character random string |
+| timestamp  | integer(int64) | Y     | 13-digit unix timestamp format            |
+| sign       | string         | Y     | The digital signature of the request to prevent illegal tampering. Refer to the [Signature](/api-reference/signature) section for the signing rules.            |
+| order_id   | string         | Y     | Merchant's internal order ID. Must be equal or less than 128 characters |
+| order_amount   | string     | Y     | Order amount (based on the order currency) <br/> Order amount (fiat amount if order_currency is fiat currency / crypto amount if order_currency is crypto currency) |
+| order_currency   | string   | Y     | Please refer to the Order Currency under [Order currency List](/api-reference/request-apis/payment/payment-order-currency) <br/> - If the order currency is a cryptocurrency, examples are USDT, ETH, etc. <br/> - If the order currency is a fiat currency, please enter the ISO 4217 3-character currency code. Examples are HKD, USD, etc |
+| order_details | JSONString  | N     | The breakdown of the order items including price, quantity and product description that will be displayed on the Cregis checkout page under the order details section |
+| sub_merchant | JSONString   | N     | If the merchant has a sub merchant assigned under this acquiring project, it can be used by the merchant to assign their own internal sub merchant ID to associate with a payment. <br /> Field: <br /> sub_merchant_id <br /> sub_merchant_name |
+| payer_id       | string     | Y     | Can be used by the merchant to assign their own internal user ID to associate with a payment            |
+| payer_name       | string   | N     | Payer's name           |
+| payer_email       | string  | N     | Payer's email,  If accept_partial_payment / accept_over_payment is false, then Yes            |
+| tokens        | ArrayString | N     | This field enables you to limit the tokens that you allow your customers to pay with. Leaving this field empty means you allow all Cregis-supported tokens for payment. <br/> For this parameter format, please refer to the Payment Currency and Payment Network from the [Pay currency List](/api-reference/request-apis/payment/payment-pay-currency) Parameters page; for example, USDT-BEP20, USDT-TRC20, etc.  |
 | stablecoin_realtime_rate | string | N | Default value：false <br />false：means using a fixed 1:1 exchange rate of USDT/USDC to USD  <br />true：means using the real-time exchange rate of USDT/USDC to USD obtained on CoinMarketCap  |
-| underpaid_tolerance   | float | N | The lower tolerance threshold for payment amount deviations of this order, underpaid_tolerance is calculated based on order_currency, and the default value is 0. <br/> - The order status will be 'paid': When order actual pay-in amount falls within the upper and lower tolerance range <br/> - The order status will be 'partial_paid': When order actual pay-in amount is lower than order receivable amount minus underpaid_tolerance value <br/> - The order status will be 'overpaid': When order actual pay-in amount is higher than order receivable amount plus overpaid_tolerance value <br/> For example: <br/> The original order_currency is HKD, and the value for underpaid_tolerance is: 2.25, which means that the order is still considered paid exact if the underpayment is within 2.25 HKD, and the 'paid' order status will be returned. If the underpayment exceeds 2.25 HKD, it will return partial paid |
-| overpaid_tolerance    | float | N | The upper tolerance threshold for payment amount deviations of this order, overpaid_tolerance is calculated based on order_currency, and the default value is 0. <br/> - The order status will be 'paid': When order actual pay-in amount falls within the upper and lower tolerance range <br/> - The order status will be 'partial_paid': When order actual pay-in amount is lower than order receivable amount minus underpaid_tolerance value <br/> - The order status will be 'overpaid': When order actual pay-in amount is higher than order receivable amount plus overpaid_tolerance value <br/> For example: <br/> The original order_currency is HKD, and the overpaid_tolerance is  3.50, which means that the order is still considered paid exact if an overpayment is HKD 3.50 or lower. If the overpayment exceeds HKD 3.50, the status will be returned as overpaid |
-| accept_partial_payment | string | N | Default value: true <br/> - false: If the merchant does NOT accept partial payment and needs user to pay remaining amount for partial paid orders <br/> - true: If the merchant accepts partial payment and does NOT need user to pay remaining amount for partial paid orders |
-| accept_over_payment | string | N | Default value: true <br/> - false: If the merchant does NOT accept overpayment and needs to refund the overpaid value to user <br/> - true:  If the merchant accepts overpayment and does NOT needs to refund the overpaid value to user |
-| language  | string | N | Default value：en <br/> Used to specify the default language for the Cregis checkout page or emails. The optional are: <br/> en - English <br/> tc - Traditional Chinese <br/> sc - Simplified Chinese |
-| callback_url   | string         | N     | URL to which Cregis sends webhook notifications on payment status update to the merchant, details for [Payment notify](/api-reference/callback/payment-engine)     |
-| remark       | string         | N     | For the merchant to make remarks about a payment            |
-| valid_time       | integer         | Y     | Validation time in minute (within 10 to 60 minutes) for a payment, a payment will be expired after this assigned validation timeframe            |
-| success_url | string | Y | The payer will be redirected to this URL when clicking on the Return to Store button after a successful payment. Be sure to include "http://" or "https://" in the url      |
-| cancel_url | string | Y |  URL to redirect if the payer does not pay and click on the Cancel button instead. Be sure to include "http://" or "https://" in the url   |
+| underpaid_tolerance   | float | N   | The lower tolerance threshold for payment amount deviations of this order, underpaid_tolerance is calculated based on order_currency, and the default value is 0. <br/> <br/> This lower tolerance threshold is used to calculate the minimum amount you would accept the order. Unit is according to the parameter of order_currency <br/> - "paid" order status: order_amount - underpaid_tolerance `<=` Actual Paid Amount `<=` order_amount + overpaid_tolerance <br/> - "partial_paid" order status:  Actual Paid Amount < order_amount - underpaid_tolerance <br/> - "overpaid" order status: order_amount + overpaid_tolerance < Actual Paid Amount <br/> <br/> Example: order_currency is HKD and underpaid_tolerance is 3.50. Order status will be <br/> - "paid" if the order is underpaid by HKD 3.50 or less <br/> - "partial_paid" if the order is underpaid by HKD 3.50 and more |
+| overpaid_tolerance    | float | N   | The upper tolerance threshold for payment amount deviations of this order, overpaid_tolerance is calculated based on order_currency, and the default value is 0. <br/> <br/> This upper tolerance threshold is used to calculate the maximum amount you would accept the order. Unit is according to the parameter of order_currency <br/> - "paid" order status: order_amount - underpaid_tolerance `<=` Actual Paid Amount `<=` order_amount + overpaid_tolerance <br/> - "partial_paid" order status:  Actual Paid Amount < order_amount - underpaid_tolerance <br/> - "overpaid" order status: order_amount + overpaid_tolerance < Actual Paid Amount <br/> <br/> Example: order_currency is HKD and overpaid_tolerance is 3.50. Order status will be <br/> - "paid" if the order is overpaid by HKD 3.50 or less <br/> - "overpaid" if the order is overpaid by HKD 3.50 and more|
+| accept_partial_payment | string | N | Default value: "true" <br/> - "false": If the order does NOT accept the partial payment and the actual payment amount is less than the order_amount, the payer must make an additional payment or proceed a refund <br/> - "true": If the order accepts the partial payment, the payer is not required to make an additional payment or proceed a refund |
+| accept_over_payment | string | N    | Default value: "true" <br/> - "false": If the order does NOT accept the overpayment and the actual payment amount is more than the order_amount, the payer must proceed a refund for the extra amount <br/> - "true":  If the order accepts the overpayment, the payer is not required to proceed a refund for the extra amount |
+| language            | string | N    | Default value：en <br/> Used to specify the default language for the Cregis checkout page or emails. The optional are: <br/> en - English <br/> tc - Traditional Chinese <br/> sc - Simplified Chinese |
+| callback_url   | string      | N    | URL to which Cregis sends webhook notifications on payment status update to the merchant, details for [Payment notify](/api-reference/callback/payment-engine)     |
+| remark       | string        | N    | For the merchant to make remarks about a payment            |
+| valid_time       | integer   | Y    | Unit: Minutes (Integer value from 10 to 60) <br/> The valid time for this order. If the valid time is expired, the payment will not be accepted.            |
+| success_url | string         | Y    | The payer will be redirected to this URL when clicking on the Return to Store button after a successful payment. Be sure to include "http://" or "https://" in the url      |
+| cancel_url | string          | Y    | Redirect to this url if the payer does not pay or click on the "Cancel" button. Be sure to include "http://" or "https://" in this url   |
 
 **order_details object**
 
 | Name           | Type           | Required | Description        |
 | ------------- | ------- | -------- | ------------ |
-| shopping_cost | decimal | N       | Shipping cost of the order         |
-| tax_cost      | decimal | N       | Tax amount of the order       |
-| items         | JSONArrayString   | N       | The breakdown details of each item in the order |
+| shopping_cost | decimal | N       | Shipping cost         |
+| tax_cost      | decimal | N       | Tax      |
+| items         | JSONArrayString   | N       | Product List |
 
 ​**items object**
 
 | Name           | Type           | Required | Description        |
 | -------------- | -------------- | -------- | ----------------------------- |
-| item_id        | string         | N       | The unique identifier of a payment in the merchant's system                        |
-| item_name      | string         | N       | Name of an item purchase                      |
-| item_price     | decimal        | N       | Unit price of an item                      |
-| price_currency | string         | N       | ISO 4217 3-character currency code. This is the currency associated with the order amount field |
+| item_id        | string         | N       | The unique identifier of the item                        |
+| item_name      | string         | N       | Item name                      |
+| item_price     | decimal        | N       | Item price                      |
+| price_currency | string         | N       | Please refer to Order Currency under [Order currency List](/api-reference/request-apis/payment/payment-order-currency) |
 | item_quantity  | integer(int64) | N       | Quantity of an item ordered                      |
 
 **sub_merchant object**
 
 | Name           | Type           | Required | Description        |
 | ----------------- | ------ | -------- | -------- |
-| sub_merchant_id   | string | N       | ID of sub merchant   |
+| sub_merchant_id   | string | N       | Sub merchant's ID   |
 | sub_merchant_name | string | N       | Name of sub merchant |
 
 ###### Request Example
@@ -95,36 +95,36 @@ POST /api/v2/checkout
 | ----- | ------ | --------------------- |
 | code  | string | Return code           |
 | msg   | string | Return message        |
-| data  | Array | Return data    |
+| data  | Object | Return data    |
 
-#### Response `data` Array Object
+#### `data` Object
 
 | Name           | Type           |  Description        |
 |----------------|----------------|------------------------|
 | cregis_id      | string         | Unique identifier of a payment generated by Cregis             |
 | checkout_url   | string         | Checkout page url        |
-| merchant_name     | string         | Merchant name to be displayed on Cregis checkout page          |
-| merchant_logo_url | string         | Merchant logo to be displayed on Cregis checkout page         |
-| order_amount   | string         | The total payment amount, in the order currency               |
-| order_currency | string         | ISO 4217 3-character currency code. This is the currency associated with the order amount field               |
-| created_time   | integer(int64) | Order creation time in 13-digit <br/> e.g. 1720508269092     |
-| expire_time    | integer(int64) | Order expiration time in 13-digit <br /> e.g. 1720508269092      |
-| payment_info   | array          | Payment detail information                 |
+| merchant_name     | string      | Merchant name to be displayed on Cregis checkout page          |
+| merchant_logo_url | string      | Merchant logo to be displayed on Cregis checkout page         |
+| order_amount   | string         | Order amount.               |
+| order_currency | string         | Order currency              |
+| created_time   | integer(int64) | Order creation time in 13-digit unix timestamp format <br/> e.g. 1720508269092 (2024-07-09 14:57:49 092)     |
+| expire_time    | integer(int64) | Order expiration time in 13-digit unix timestamp format <br/> e.g. 1720508269092 i.e. 2024-07-09 14:57:49 092      |
+| payment_info   | ArrayObject    | Payment detail information                 |
 
 #### `payment_info` object
 
 | Name           | Type           |  Description        |
 |----------------|----------------|------------------------|
-| payment_address      | string         | Wallet address that receives payment             |
-| token_symbol   | string         | crypto asset symbol                |
-| blockchain | string         | Blockchain network               |
-| token_name   | string | crypto token name    |
-| logo_url    | string | crypto token logo               |
-| token_decimals   | integer          | crypto token decimal places                 |
-| receive_amount   | string          | The amount of the order after exchange rate conversion                 |
-| receive_currency   | string          | The order currency code after exchange rate conversion                 |
-| exchange_rate   | string          | Currency exchange rate                 |
-| asset_logo       | string  | crypto asset logo               |
+| payment_address      | string   | Wallet address that receives payment             |
+| token_symbol   | string         | Available cryptocurrency for payment. Can refer to the parameter of tokens in order creation                |
+| blockchain | string             | Blockchain network               |
+| token_name   | string           | crypto token name    |
+| logo_url    | string            | crypto token logo               |
+| token_decimals   | integer      | crypto token decimal places                 |
+| receive_amount   | string       | The amount of the order after exchange rate conversion                 |
+| receive_currency   | string     | The order currency code after exchange rate conversion                 |
+| exchange_rate   | string        | Currency exchange rate                 |
+| asset_logo       | string       | crypto asset logo               |
 
 ###### Response Example
 
