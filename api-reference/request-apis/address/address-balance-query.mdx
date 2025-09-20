@@ -1,0 +1,87 @@
+---
+title: 'Query address balance'
+description: 'Query WaaS address balance'
+---
+
+### API URL
+
+POST /api/v1/sub_address_balance
+
+### Request
+
+#### Request Parameters
+
+| Name           | Type           | Required | Description        |
+| ------------- | --------------- | -------- | ------------- |
+| pid           | integer(int64)  | Yes      | WaaS Project ID. Navigate to: "Cregis > WaaS > [Your Project] > Settings > Developer"   |
+| currency      | string          | Yes      | The token you want to query (chain_id@token_id) |
+| address       | string          | No       | The sub-address you want to query      |
+| maximum_balance   | string      | No       | Query address maximum balance      |
+| minimum_balance   | string      | No       | Query address minimum balance      |
+| page_num      | integer(int32)  | No       | Page number (defaults to 1 if empty)     |
+| page_size     | integer(int32)  | No       | Items per page (defaults to 10 if empty, maximum allowed value is 100 if specified)     |
+| nonce         | string          | Yes      | 6-character random string |
+| timestamp     | integer(int64)  | Yes      | Current timestamp (milliseconds)     |
+| sign          | string          | Yes      | Digital signature to prevent tampering     |
+
+###### Request Example
+
+```json
+{
+  "pid": 1382528827416576,
+  "address": "",
+  "currency": "195@195",
+  "minimum_balance":"1"
+  "maximum_balance":"10"
+  "page_num": 1,
+  "page_size": 10,
+  "nonce": "hwlkk6",
+  "timestamp": 1688004243314,
+  "sign": "d6eef2de79e39f434a38efb910213ba6"
+}
+```
+### Response
+
+#### Response Result
+
+| Name  | Type     | Description          |
+| ----- | ------ | ---------------- |
+| code  | string | Response Code           |
+| msg   | string | Response Message        |
+| data  | object | Response Data Object    |
+
+#### Response `data` Object
+
+| Name  | Type     | Description          |
+| -------   | ------ | ----------- |
+| pid  | integer(int64) | WaaS project ID     |
+| currency  | string | The token name of the token you are querying  |
+| address   | string | Queried address     |
+| total     | string | Total balance（Available+Processing）     |
+| available | string | Available balance     |
+| processing| string | Processing balance     |
+
+###### Response Example
+
+```json
+{
+    "code": "00000",
+    "msg": "ok",
+    "data": {
+        "total": 1,
+        "rows": [
+            {
+              "pid":1395142548643840,
+              "address":"TKDxZEycaxNosmH1V9x6hEacKgWF3RRZ7h",
+              "currency":"198@TG3XXyExBkPp9nzdajDZsozEu4BkaSJozs",
+              "total":"7",
+              "available":"7",
+              "processing":"0"
+            }
+        ],
+        "pageNum": 1,
+        "pageSize": 10
+    },
+}
+```
+
