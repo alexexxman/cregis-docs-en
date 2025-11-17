@@ -33,7 +33,7 @@ POST /api/v2/checkout
 | language            | string | N    | Default value：en <br/> Used to specify the default language for the Cregis checkout page or emails. The optional are: <br/> en - English <br/> tc - Traditional Chinese <br/> sc - Simplified Chinese |
 | callback_url   | string      | N    | URL to which Cregis sends webhook notifications on payment status update to the merchant, details for [Payment notify](/api-reference/callback/payment-engine)     |
 | remark       | string        | N    | For the merchant to make remarks about a payment            |
-| valid_time       | integer   | Y    | Unit: Minutes (Integer value from 10 to 60) <br/> The valid time for this order. If the valid time is expired, the payment will not be accepted.            |
+| valid_time       | integer   | Y    | Unit: Minutes (Integer value from 10 to 1440) <br/> The valid time for this order. If the valid time is expired, the payment will not be accepted.            |
 | success_url | string         | Y    | The payer will be redirected to this URL when clicking on the Return to Store button after a successful payment. Be sure to include "http://" or "https://" in the url      |
 | cancel_url | string          | Y    | Redirect to this url if the payer does not pay or click on the "Cancel" button. Be sure to include "http://" or "https://" in this url   |
 
