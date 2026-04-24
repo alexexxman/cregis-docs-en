@@ -65,17 +65,13 @@
                 "pages": [
                   "api-reference/request-apis/payout/payout-create",
                   "api-reference/request-apis/payout/payout-create-v2",
-                  "api-reference/request-apis/payout/validation-address-legality",
-                  "api-reference/request-apis/payout/payout-query",
-                  "api-reference/callback/payout"
-                ]
-              },
-              {
-                "group": "Sub-address Withdrawal",
-                "pages": [
                   "api-reference/request-apis/withdrawal/withdrawal-create",
+                  "api-reference/callback/payout",
                   "api-reference/callback/withdrawal",
-                  "api-reference/request-apis/withdrawal/withdrawal-query"
+                  "api-reference/request-apis/payout/payout-query",
+                  "api-reference/request-apis/withdrawal/withdrawal-query",
+                  "api-reference/request-apis/payout/validation-address-legality"
+                  
                 ]
               }
             ]
